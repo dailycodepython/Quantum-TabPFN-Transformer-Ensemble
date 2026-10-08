@@ -35,7 +35,7 @@ $$Quantum\_Prob\_Satisfied = \vert\langle 0 \vert \psi \rangle\vert^2$$
 ## 🛠️ Production Tech Stack & Execution
 * **Tabular Foundation Model:** Integrated `TabPFNClassifier` running natively on **NVIDIA CUDA GPU**, utilizing multi-configuration transformer attention layers.
 * **Robust Pipeline:** Deployed dynamic column validation coupled with global \(Z\)-score standardization.
-* **Ensemble Blending:** Synchronized dense tree-boosting topologies (\(\eta = 0.05\)) and transformer probabilities using a optimized ratio split (\(35\% / 25\% / 25\% / 15\%\)).
+* **Ensemble Blending:** Synchronized dense tree-boosting topologies $$\eta = 0.05$$) and transformer probabilities using a optimized ratio split $$(35\% / 25\% / 25\% / 15\%\)$$.
 
 ---
 *Developed as a benchmark exploration in Tabular Foundation Models, Quantum-Behavioral Analytics, and Meta-Ensembling.* 🚀⚙
