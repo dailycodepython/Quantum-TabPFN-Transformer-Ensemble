@@ -14,7 +14,7 @@ Traditional gradient boosting models slice space using orthogonal decision bound
 ### 1. Vector Discomfort Index (Linear Algebra)
 Projects temporal anomalies into a continuous 2D coordinate system, calculating the normalized Euclidean distance relative to the overall system flight scale:
 
-$$\[Vector\_Discomfort\_Index = \frac{\sqrt{\Delta t_{dep}^2 + \Delta t_{arr}^2}}{t_{ground\_ideal} + t_{flight}}\]$$
+$$\Vector\_Discomfort\_Index = \frac{\sqrt{\Delta t_{dep}^2 + \Delta t_{arr}^2}}{t_{ground\_ideal} + t_{flight}}\$$
 
 ### 2. Complex Phase-Space (Complex Analysis)
 Vectorizes delay mechanics onto a 2D complex plane (\(Z = X + iY\)) to extract the exact modulus (stress magnitude) and phase angle (argument) of the distress pipeline:
