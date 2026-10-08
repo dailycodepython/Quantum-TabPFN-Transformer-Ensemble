@@ -17,18 +17,18 @@ Projects temporal anomalies into a continuous 2D coordinate system, calculating 
 $$Vector\_Discomfort\_Index = \frac{\sqrt{\Delta t_{dep}^2 + \Delta t_{arr}^2}}{t_{ground\_ideal} + t_{flight}}$$
 
 ### 2. Complex Phase-Space (Complex Analysis)
-Vectorizes delay mechanics onto a 2D complex plane (\(Z = X + iY\)) to extract the exact modulus (stress magnitude) and phase angle (argument) of the distress pipeline:
+Vectorizes delay mechanics onto a 2D complex plane $$(Z = X + iY\)$$ to extract the exact modulus (stress magnitude) and phase angle (argument) of the distress pipeline:
 
-\[Z_{stress} = \frac{\Delta t_{dep}}{t_{flight}} + i \cdot \frac{\Delta t_{arr}}{t_{flight}}\]
+$$Z_{stress} = \frac{\Delta t_{dep}}{t_{flight}} + i \cdot \frac{\Delta t_{arr}}{t_{flight}}$$
 
 \[Stress\_Phase\_Deg = deg(arg(Z_{stress}))\]
 
 ### 3. Dynamic Customer Satisfaction Steering (Quantum Logic)
-Models the customer's emotional trajectory as a single qubit mapped onto the **Bloch Sphere**. The complex variable stress operates as a destructive \(R_x(\theta)\) gate, while a standardized \(Z\)-score service filter acts as a recovery \(R_y(\phi)\) gate:
+Models the customer's emotional trajectory as a single qubit mapped onto the **Bloch Sphere**. The complex variable stress operates as a destructive \(R_x(\theta)\) gate, while a standardized \(Z\)-score service filter acts as a recovery $$R_y(\phi)$$ gate:
 
-\[\vert\psi\rangle = U_{service}(\phi) U_{stress}(\theta) \vert0\rangle\]
+$$\vert\psi\rangle = U_{service}(\phi) U_{stress}(\theta) \vert0\rangle$$
 
-\[Quantum\_Prob\_Satisfied = \vert\langle 0 \vert \psi \rangle\vert^2\]
+$$Quantum\_Prob\_Satisfied = \vert\langle 0 \vert \psi \rangle\vert^2$$
 
 ---
 
