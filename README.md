@@ -18,21 +18,24 @@ Traditional gradient boosting models slice space using orthogonal decision bound
 
 ### 1. Vector Discomfort Index (Linear Algebra)
 Projects temporal anomalies onto a continuous 2D coordinate system, calculating the normalized Euclidean distance relative to the overall system flight scale:
+
+
 $$Vector_{Discomfort\_Index} = \frac{\sqrt{\Delta t_{dep}^2 + \Delta t_{arr}^2}}{t_{ground\_ideal} + t_{flight}}$$
 
 ### 2. Complex Phase-Space (Complex Analysis)
-Vectorizes delay mechanics onto a 2D complex plane (\(Z = X + iY\)) to extract the exact modulus (stress magnitude) and phase angle (argument) of the distress pipeline:
+Vectorizes delay mechanics onto a 2D complex plane $$(Z = X + iY\)$$ to extract the exact modulus (stress magnitude) and phase angle (argument) of the distress pipeline:
 
-\[Z_{stress} = \frac{\Delta t_{dep}}{t_{flight}} + i \cdot \frac{\Delta t_{arr}}{t_{flight}}\]
+$$Z_{stress} = \frac{\Delta t_{dep}}{t_{flight}} + i \cdot \frac{\Delta t_{arr}}{t_{flight}}$$
 
-\[[Stress\_Phase\_Deg = \text{deg}(\text{arg}(Z_{stress}))]\]
+
+$$[Stress\_Phase\_Deg = \text{deg}(\text{arg}(Z_{stress}))]$$
 
 ### 3. Dynamic Customer Satisfaction Steering (Quantum Logic)
-Models the customer's emotional trajectory as a single qubit mapped onto the **Bloch Sphere**. The complex variable stress operates as a destructive \(R_x(\theta)\) gate, while a standardized (Z)-score service filter acts as a recovery \(R_y(\phi)\) gate:
+Models the customer's emotional trajectory as a single qubit mapped onto the **Bloch Sphere**. The complex variable stress operates as a destructive \(R_x(\theta)\) gate, while a standardized (Z)-score service filter acts as a recovery $$R_y(\phi)$$ gate:
 
-\[\vert{}\psi\rangle = U_{service}(\phi) U_{stress}(\theta) \vert{}0\rangle\]
+$$\vert{}\psi\rangle = U_{service}(\phi) U_{stress}(\theta) \vert{}0\rangle$$
 
-\[Quantum_{Prob\_Satisfied} = \vert{}\langle 0 \vert{} \psi\rangle\vert{}^2\]
+$$Quantum_{Prob\_Satisfied} = \vert{}\langle 0 \vert{} \psi\rangle\vert{}^2$$
 
 ---
 
