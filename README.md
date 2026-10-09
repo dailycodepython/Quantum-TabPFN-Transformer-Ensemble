@@ -43,58 +43,95 @@ $$Quantum\_Prob\_Satisfied = \vert\langle 0 \vert \psi \rangle\vert^2$$
 
 ```mermaid
 graph TD
-    %% Стилизация узлов
-    classDef sample fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
+    %% Node Styling
+    classDef raw fill:#f5f5f5,stroke:#9e9e9e,stroke-width:2px;
+    classDef engineering fill:#efe5fd,stroke:#7e57c2,stroke-width:2px;
+    classDef quantum fill:#e1f5fe,stroke:#0288d1,stroke-width:2px;
+    classDef split fill:#fff3e0,stroke:#f57c00,stroke-width:2px;
     classDef model fill:#f9f9f9,stroke:#333,stroke-width:2px;
-    classDef blend fill:#efe5fd,stroke:#7e57c2,stroke-width:2px;
     classDef output fill:#e8f5e9,stroke:#4caf50,stroke-width:2px;
 
-    %% Предыдущий шаг и сабсемплинг
-    subgraph TabPFN_Optimization [Оптимизация TabPFN]
-        X_train_full["Полный X_train"]:::model
-        Subsample["Случайный выбор без повторений<br>(np.random.choice, size=10,000)"]:::sample
-        X_train_sub["X_train_sub / y_train_sub"]:::sample
+    %% STAGE 1: Data Inputs
+    subgraph Stage_1 [1. Data Input & Ingestion]
+        DF[train.csv / test.csv]:::raw
+        Delays[Departure & Arrival Delays]:::raw
+        Services[14 Customer Service Ratings]:::raw
+        Distance[Flight Distance]:::raw
         
-        X_train_full --> Subsample
-        Subsample --> X_train_sub
+        DF --> Delays & Services & Distance
     end
 
-    %% Обучение и инференс TabPFN
-    subgraph TabPFN_Inference [Tabular Foundation Block]
-        TabPFN_Model["TabPFNClassifier<br>(GPU Enabled)"]:::model
-        pfn_val_preds["pfn_val_preds<br>(predict_proba)"]:::model
+    %% STAGE 2: Quantum-Complex Feature Engineering
+    subgraph Stage_2 [2. Quantum-Complex Feature Engineering]
+        %% Linear Algebra
+        V_Dist["v_error_dist = sqrt(dep_delay² + arr_delay²)"]
+        V_Index["Vector_Discomfort_Index"]
+        Distance & Delays --> V_Dist --> V_Index
         
-        X_train_sub --> TabPFN_Model
-        TabPFN_Model --> pfn_val_preds
+        %% Complex Analysis
+        Z_Array["Complex State:<br>z_array = x + i*y"]
+        Stress_Mag["Complex_Stress_Magnitude"]
+        Stress_Phase["Stress_Phase_Deg"]
+        Delays --> Z_Array --> Stress_Mag & Stress_Phase
+        
+        %% Quantum Mapping & Born's Rule
+        Scaler[StandardScaler]
+        Phi["Phi Angle<br>(Service Delta)"]
+        Theta["Theta Angle<br>(Stress Magnitude)"]
+        Alpha["Quantum Amplitude<br>alpha = f(phi, theta)"]:::quantum
+        Q_Prob["Quantum_Prob_Satisfied<br>|alpha|²"]:::quantum
+        
+        Services --> Scaler --> Phi
+        Stress_Mag --> Theta
+        Phi & Theta --> Alpha --> Q_Prob
     end
 
-    %% Блок Блендинга
-    subgraph Ensemble_Blending [Синхронизация весов и Блендинг]
-        xgb_p[xgb_preds]:::model
-        lgb_p[lgb_preds]:::model
-        cat_p[cat_preds]:::model
-        pfn_p[pfn_val_preds]:::model
-
-        Blend_Formula{"Взвешенная сумма<br>Сумма весов = 1.0"}:::blend
+    %% STAGE 3: Dataset Assembly & Validation Split
+    subgraph Stage_3 [3. Dataset Assembly & Validation Strategy]
+        Features["Final Feature Matrix X<br>[Base + Quantum-Complex + Service]"]
+        Target["Target y (LabelEncoded)"]
+        Split["Stratified Train/Val Split (80/20)"]:::split
         
-        xgb_p --> |Weight: 35%| Blend_Formula
-        lgb_p --> |Weight: 25%| Blend_Formula
-        cat_p --> |Weight: 25%| Blend_Formula
-        pfn_p --> |Weight: 15%| Blend_Formula
+        V_Index & Stress_Phase & Q_Prob --> Features
+        Features & Target --> Split
         
-        Final_Blend["final_val_blend<br>(Вероятности классов)"]:::blend
-        Blend_Formula --> Final_Blend
+        X_train_full["Full X_train"]:::split
+        X_val["X_val"]:::split
+        
+        Split --> X_train_full & X_val
     end
 
-    %% Метрики и Вывод
-    subgraph Output_Generation [Финальный результат]
-        Metric["Валидация ансамбля:<br>roc_auc_score(y_val, final_val_blend)"]
-        Submission["Kaggle Submission DataFrame<br>(id, satisfaction)"]:::output
+    %% STAGE 4: Parallel Ensemble Training
+    subgraph Stage_4 [4. Parallel Ensemble Training]
+        %% Classical Boosting Branch
+        XGB["XGBoost Classifier<br>(max_depth=7)"]:::model
+        LGB["LightGBM Classifier<br>(max_depth=8)"]:::model
+        Cat["CatBoost Classifier<br>(depth=7)"]:::model
+        
+        X_train_full --> XGB & LGB & Cat
+        X_val --> XGB & LGB & Cat
+        
+        %% TabPFN Foundation Branch
+        Subsample["Subsampling Context<br>(Random 10,000 rows)"]:::split
+        X_train_sub["X_train_sub"]:::split
+        TabPFN["TabPFN Classifier<br>(GPU In-Context Transformer)"]:::model
+        
+        X_train_full --> Subsample --> X_train_sub
+        X_train_sub & X_val --> TabPFN
+    end
+
+    %% STAGE 5: Meta-Blending & Prediction Output
+    subgraph Stage_5 [5. Meta-Blending & Predictions]
+        Blend{"Weighted Ensemble Blending<br>0.35*XGB + 0.25*LGB + 0.25*Cat + 0.15*TabPFN"}:::engineering
+        
+        XGB & LGB & Cat & TabPFN --> |predict_proba| Blend
+        
+        Metric["Validation Score<br>roc_auc_score(y_val, blend)"]:::output
+        Submission["Kaggle Submission DataFrame"]:::output
         CSV["submission.csv"]:::output
         
-        Final_Blend --> Metric
-        Final_Blend --> Submission
-        Submission --> CSV
+        Blend --> Metric & Submission --> CSV
     end
 ```
+
 
